@@ -4,16 +4,18 @@
 
 ## About
 
-Three shaders to generate 3D animated planets and stars in Godot 4:
+Shaders to generate 3D animated planets and stars in Godot 4:
 
 - Planet body generation shader
+- Earth-like planet body generation shader (ocean, mountains, polar ice caps)
 - Cloud generation shader
-- Astmosphere generation shader
+- Atmosphere generation shader
 
-The project contains seven example planets:
+The project contains these example planets:
 
 - No atmosphere planet
 - Terrestrial planet
+- Terrestrial planet using the terrestial_body shader
 - Ice planet
 - Lava planet
 - Sand planet
