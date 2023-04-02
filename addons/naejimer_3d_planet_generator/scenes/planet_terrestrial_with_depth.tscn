@@ -1,0 +1,90 @@
+[gd_scene load_steps=14 format=3 uid="uid://f6xgsnjpcqjp"]
+
+[ext_resource type="Shader" path="res://addons/naejimer_3d_planet_generator/shaders/clouds.gdshader" id="1_uqnil"]
+[ext_resource type="Texture2D" uid="uid://b4nta4b1auodv" path="res://addons/naejimer_3d_planet_generator/noises/planet_terrestrial.tres" id="2_kjxqn"]
+[ext_resource type="Shader" path="res://addons/naejimer_3d_planet_generator/shaders/terrestial_body.gdshader" id="3_o32yi"]
+[ext_resource type="Shader" path="res://addons/naejimer_3d_planet_generator/shaders/atmosphere.gdshader" id="4_uwqub"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c8avg"]
+render_priority = 0
+shader = ExtResource("1_uqnil")
+shader_parameter/speed = 0.005
+shader_parameter/brightness = 0.5
+shader_parameter/threshold = 1.2
+shader_parameter/fluffiness = 0.1
+shader_parameter/noise_texture = ExtResource("2_kjxqn")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_v2hu4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tunmo"]
+seamless = true
+seamless_blend_skirt = 0.5
+as_normal_map = true
+noise = SubResource("FastNoiseLite_v2hu4")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eoci3"]
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1ohue"]
+seamless = true
+seamless_blend_skirt = 0.5
+as_normal_map = true
+noise = SubResource("FastNoiseLite_eoci3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0a0i"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_c8avg")
+shader = ExtResource("3_o32yi")
+shader_parameter/emit = false
+shader_parameter/color_1 = Color(0.17, 0.55, 1, 1)
+shader_parameter/color_1_treshold = 0.54
+shader_parameter/color_1_roughness = 0.1
+shader_parameter/color_1_specular = 0.1
+shader_parameter/color_1_metallic = 0.1
+shader_parameter/color_1_emit = false
+shader_parameter/color_2 = Color(1, 0.94, 0.76, 1)
+shader_parameter/color_2_treshold = 0.56
+shader_parameter/color_3 = Color(0.34, 0.74, 0.5, 1)
+shader_parameter/color_3_treshold = 0.6
+shader_parameter/color_4 = Color(0.27, 0.62, 0.42, 1)
+shader_parameter/color_4_treshold = 0.7
+shader_parameter/color_5 = Color(1, 1, 1, 1)
+shader_parameter/color_5_treshold = 1.0
+shader_parameter/noise_gaseous = false
+shader_parameter/noise_gaseous_speed = 0.0025
+shader_parameter/noise_scale = 1.0
+shader_parameter/noise_normal_depth = 10.0
+shader_parameter/water_speed = 0.004
+shader_parameter/noise_normal_depth_water = 1.0
+shader_parameter/ice_cap_size = 0.04
+shader_parameter/noise = ExtResource("2_kjxqn")
+shader_parameter/noise_normal = SubResource("NoiseTexture2D_tunmo")
+shader_parameter/water_noise_normal = SubResource("NoiseTexture2D_1ohue")
+
+[sub_resource type="SphereMesh" id="SphereMesh_h4ifb"]
+material = SubResource("ShaderMaterial_d0a0i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ff133"]
+render_priority = 0
+shader = ExtResource("4_uwqub")
+shader_parameter/color_1 = Color(0, 0.12, 0.27, 1)
+shader_parameter/color_2 = Color(0.63, 0.78, 1, 1)
+shader_parameter/alpha = 0.3
+shader_parameter/amount = 4.5
+shader_parameter/intensity = 4.0
+shader_parameter/emit = false
+
+[sub_resource type="SphereMesh" id="SphereMesh_lk7tp"]
+material = SubResource("ShaderMaterial_ff133")
+flip_faces = true
+
+[node name="PlanetTerrestrialWithDepth" type="MeshInstance3D"]
+transform = Transform3D(-168.056, 0, -362.984, 0, 400, 0, 362.984, 0, -168.056, 0, 0, 0)
+mesh = SubResource("SphereMesh_h4ifb")
+skeleton = NodePath(".")
+
+[node name="Atmosphere" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0)
+sorting_offset = 5.0
+cast_shadow = 0
+mesh = SubResource("SphereMesh_lk7tp")
