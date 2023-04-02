@@ -24,6 +24,7 @@ The project contains seven example planets:
 
 ## Screenshots
 
+![earth-like](https://user-images.githubusercontent.com/3999238/229362890-75dd55c3-18c1-43f2-8e26-63365d668652.png)
 ![No atmosphere planet](https://user-images.githubusercontent.com/4329231/212466832-980636cb-4ccb-4feb-8fde-1a90fc33a44a.png)
 ![Terrestrial planet](https://user-images.githubusercontent.com/4329231/212466837-0853c176-558e-43a1-ab61-80b6c7684b43.png)
 ![Ice planet](https://user-images.githubusercontent.com/4329231/212466840-5a1c696c-8967-478d-b788-c3144e7a9e44.png)
